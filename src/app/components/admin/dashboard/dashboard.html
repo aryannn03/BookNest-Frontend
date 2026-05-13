@@ -1,0 +1,195 @@
+<div class="admin-page">
+
+  <!-- Admin Header -->
+  <div class="admin-header">
+    <div class="container">
+      <div class="d-flex justify-content-between
+                  align-items-center">
+        <div>
+          <h1 class="page-title">
+            Admin <span class="gradient-text">Dashboard</span>
+          </h1>
+          <p class="page-subtitle">
+            Welcome back, Admin!
+          </p>
+        </div>
+        <div class="admin-badge">
+          <i class="fas fa-shield-alt me-2"></i>
+          Administrator
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container py-5">
+
+    <!-- Stats Cards -->
+    <div class="row g-4 mb-5">
+
+      <div class="col-6 col-lg-3">
+        <div class="stat-card books-card">
+          <div class="stat-icon">
+            <i class="fas fa-book"></i>
+          </div>
+          <div class="stat-info">
+            <div class="stat-value">{{totalBooks}}</div>
+            <div class="stat-label">Total Books</div>
+          </div>
+          <a routerLink="/admin/books"
+             class="stat-link">
+            Manage <i class="fas fa-arrow-right ms-1"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="col-6 col-lg-3">
+        <div class="stat-card orders-card">
+          <div class="stat-icon">
+            <i class="fas fa-shopping-bag"></i>
+          </div>
+          <div class="stat-info">
+            <div class="stat-value">{{totalOrders}}</div>
+            <div class="stat-label">Total Orders</div>
+          </div>
+          <a routerLink="/admin/orders"
+             class="stat-link">
+            Manage <i class="fas fa-arrow-right ms-1"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="col-6 col-lg-3">
+        <div class="stat-card users-card">
+          <div class="stat-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <div class="stat-info">
+            <div class="stat-value">{{totalUsers}}</div>
+            <div class="stat-label">Total Users</div>
+          </div>
+          <a routerLink="/admin/users"
+             class="stat-link">
+            Manage <i class="fas fa-arrow-right ms-1"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="col-6 col-lg-3">
+        <div class="stat-card revenue-card">
+          <div class="stat-icon">
+            <i class="fas fa-rupee-sign"></i>
+          </div>
+          <div class="stat-info">
+            <div class="stat-value">
+              ₹{{totalRevenue | number:'1.0-0'}}
+            </div>
+            <div class="stat-label">Total Revenue</div>
+          </div>
+          <a routerLink="/admin/orders"
+             class="stat-link">
+            View <i class="fas fa-arrow-right ms-1"></i>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row g-4">
+
+      <!-- Order Status Breakdown -->
+      <div class="col-md-5">
+        <div class="dashboard-card">
+          <h6 class="card-heading">Order Status</h6>
+          <div class="status-breakdown">
+            <div class="status-item"
+                 *ngFor="let s of orderStatuses">
+              <div class="status-bar-label">
+                <span>{{s.status}}</span>
+                <span class="status-count">{{s.count}}</span>
+              </div>
+              <div class="status-bar-track">
+                <div class="status-bar-fill"
+                     [style.width.%]="totalOrders > 0 ?
+                     (s.count / totalOrders * 100) : 0"
+                     [style.background]="s.color">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Orders -->
+      <div class="col-md-7">
+        <div class="dashboard-card">
+          <div class="d-flex justify-content-between
+                      align-items-center mb-4">
+            <h6 class="card-heading mb-0">Recent Orders</h6>
+            <a routerLink="/admin/orders"
+               class="view-all-link">View All</a>
+          </div>
+          <div class="recent-orders">
+            <div class="recent-order-item"
+                 *ngFor="let order of recentOrders">
+              <div class="order-avatar">
+                #{{order.orderId}}
+              </div>
+              <div class="order-info">
+                <div class="order-book">
+                  {{order.bookTitle}}
+                </div>
+                <div class="order-meta">
+                  {{order.orderDate}} •
+                  {{order.modeOfPayment}}
+                </div>
+              </div>
+              <div class="order-amount">
+                ₹{{order.amountPaid | number:'1.2-2'}}
+              </div>
+              <div class="order-status-badge"
+                   [class]="getStatusClass(
+                   order.orderStatus)">
+                {{order.orderStatus}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="col-12">
+        <div class="dashboard-card">
+          <h6 class="card-heading">Quick Actions</h6>
+          <div class="quick-actions">
+            <a routerLink="/admin/books/add"
+               class="quick-action-btn">
+              <i class="fas fa-plus-circle"></i>
+              <span>Add Book</span>
+            </a>
+            <a routerLink="/admin/orders"
+               class="quick-action-btn">
+              <i class="fas fa-box"></i>
+              <span>Manage Orders</span>
+            </a>
+            <a routerLink="/admin/inventory"
+               class="quick-action-btn">
+              <i class="fas fa-warehouse"></i>
+              <span>Inventory</span>
+            </a>
+            <a routerLink="/admin/users"
+               class="quick-action-btn">
+              <i class="fas fa-users"></i>
+              <span>Users</span>
+            </a>
+            <a routerLink="/admin/reviews"
+               class="quick-action-btn">
+              <i class="fas fa-star"></i>
+              <span>Reviews</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

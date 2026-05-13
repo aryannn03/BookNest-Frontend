@@ -1,0 +1,98 @@
+<div class="wishlist-page">
+
+  <div class="page-header">
+    <div class="container">
+      <h1 class="page-title">
+        My <span class="gradient-text">Wishlist</span>
+      </h1>
+      <p class="page-subtitle">
+        Books you want to read next
+      </p>
+    </div>
+  </div>
+
+  <div class="container py-5">
+
+    <!-- Loading -->
+    <div class="row g-4" *ngIf="isLoading">
+      <div class="col-md-4"
+           *ngFor="let s of [1,2,3]">
+        <div class="skeleton"
+             style="height:280px;border-radius:16px">
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty -->
+    <div class="empty-state"
+         *ngIf="!isLoading &&
+         (!wishlist?.books || wishlist?.books?.length === 0)">
+      <div class="empty-icon">
+        <i class="fas fa-heart"></i>
+      </div>
+      <h3>Your wishlist is empty!</h3>
+      <p>Save books you want to read later</p>
+      <a routerLink="/books" class="btn btn-primary-custom">
+        <i class="fas fa-book me-2"></i>Browse Books
+      </a>
+    </div>
+
+    <!-- Wishlist Content -->
+    <div *ngIf="!isLoading && wishlist?.books?.length > 0">
+
+      <!-- Header -->
+      <div class="wishlist-header">
+        <span>
+          {{wishlist.books.length}} book(s) in wishlist
+        </span>
+        <button class="btn-clear-all"
+                (click)="clearWishlist()">
+          <i class="fas fa-trash me-1"></i>Clear All
+        </button>
+      </div>
+
+      <!-- Grid -->
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-4"
+             *ngFor="let item of wishlist.books">
+          <div class="wishlist-card
+                      animate__animated animate__fadeIn">
+
+            <!-- Book Icon -->
+            <div class="wishlist-book-icon">
+              <i class="fas fa-book"></i>
+            </div>
+
+            <!-- Details -->
+            <div class="wishlist-details">
+              <h6 class="wishlist-title">
+                {{item.bookTitle}}
+              </h6>
+              <p class="wishlist-price">
+                ₹{{item.bookPrice | number:'1.2-2'}}
+              </p>
+            </div>
+
+            <!-- Actions -->
+            <div class="wishlist-actions">
+              <button class="btn-move-cart"
+                      [disabled]="movingItem === item.itemId"
+                      (click)="moveToCart(item.itemId)">
+                <i class="fas fa-shopping-cart me-2"></i>
+                {{movingItem === item.itemId ?
+                  'Moving...' : 'Move to Cart'}}
+              </button>
+              <button class="btn-remove-wish"
+                      [disabled]="
+                      removingItem === item.itemId"
+                      (click)="removeBook(item.itemId)">
+                <i class="fas fa-heart-broken"></i>
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

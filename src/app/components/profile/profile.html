@@ -1,0 +1,159 @@
+<div class="profile-page">
+
+  <div class="page-header">
+    <div class="container">
+      <h1 class="page-title">
+        My <span class="gradient-text">Profile</span>
+      </h1>
+    </div>
+  </div>
+
+  <div class="container py-5">
+
+    <!-- Loading -->
+    <div class="row g-4" *ngIf="isLoading">
+      <div class="col-md-4">
+        <div class="skeleton"
+             style="height:300px;border-radius:16px">
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="skeleton"
+             style="height:400px;border-radius:16px">
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4" *ngIf="!isLoading && profile">
+
+      <!-- Profile Card -->
+      <div class="col-md-4">
+        <div class="profile-card">
+          <div class="profile-avatar">
+            {{getInitial()}}
+          </div>
+          <h4 class="profile-name">
+            {{profile.fullName}}
+          </h4>
+          <p class="profile-email">{{profile.email}}</p>
+          <div class="profile-role">
+            <i class="fas fa-user me-2"></i>
+            {{profile.role}}
+          </div>
+          <div class="profile-provider"
+               *ngIf="profile.provider">
+            <i class="fab fa-github me-2"
+               *ngIf="profile.provider === 'GITHUB'"></i>
+            <i class="fas fa-envelope me-2"
+               *ngIf="profile.provider === 'LOCAL'"></i>
+            {{profile.provider}} Account
+          </div>
+          <div class="profile-joined">
+            <i class="fas fa-calendar me-2"></i>
+            Joined {{profile.createdAt | date:'mediumDate'}}
+          </div>
+        </div>
+      </div>
+
+      <!-- Profile Forms -->
+      <div class="col-md-8">
+
+        <!-- Tabs -->
+        <div class="profile-tabs">
+          <button class="tab-btn"
+                  [class.active]="activeTab === 'profile'"
+                  (click)="activeTab = 'profile'">
+            <i class="fas fa-user me-2"></i>
+            Edit Profile
+          </button>
+          <button class="tab-btn"
+                  [class.active]="activeTab === 'password'"
+                  (click)="activeTab = 'password'">
+            <i class="fas fa-lock me-2"></i>
+            Change Password
+          </button>
+        </div>
+
+        <!-- Edit Profile -->
+        <div class="profile-form-card"
+             *ngIf="activeTab === 'profile'">
+          <h6 class="form-title">Personal Information</h6>
+
+          <div class="form-group">
+            <label class="form-label">Full Name</label>
+            <input type="text"
+                   class="form-control-custom"
+                   [(ngModel)]="profileForm.fullName">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">
+              Email (Cannot be changed)
+            </label>
+            <input type="email"
+                   class="form-control-custom"
+                   [value]="profile.email"
+                   disabled>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Mobile Number</label>
+            <input type="number"
+                   class="form-control-custom"
+                   [(ngModel)]="profileForm.mobile">
+          </div>
+
+          <button class="btn-save"
+                  [disabled]="isUpdating"
+                  (click)="updateProfile()">
+            <i class="fas fa-save me-2"></i>
+            {{isUpdating ? 'Saving...' : 'Save Changes'}}
+          </button>
+        </div>
+
+        <!-- Change Password -->
+        <div class="profile-form-card"
+             *ngIf="activeTab === 'password'">
+          <h6 class="form-title">Change Password</h6>
+
+          <div class="form-group">
+            <label class="form-label">Current Password</label>
+            <input type="password"
+                   class="form-control-custom"
+                   placeholder="Enter current password"
+                   autocomplete="off"
+                   [(ngModel)]="passwordForm.oldPassword">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">New Password</label>
+            <input type="password"
+                   class="form-control-custom"
+                   placeholder="Min 6 characters"
+                   [(ngModel)]="passwordForm.newPassword">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">
+              Confirm New Password
+            </label>
+            <input type="password"
+                   class="form-control-custom"
+                   placeholder="Confirm new password"
+                   [(ngModel)]="
+                   passwordForm.confirmPassword">
+          </div>
+
+          <button class="btn-save"
+                  [disabled]="isChangingPassword"
+                  (click)="changePassword()">
+            <i class="fas fa-key me-2"></i>
+            {{isChangingPassword ?
+              'Changing...' : 'Change Password'}}
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
