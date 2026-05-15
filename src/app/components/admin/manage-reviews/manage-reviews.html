@@ -1,0 +1,68 @@
+<div class="admin-page">
+
+  <div class="admin-header">
+    <div class="container">
+      <h1 class="page-title">
+        Manage <span class="gradient-text">Reviews</span>
+      </h1>
+      <p class="page-subtitle">
+        {{reviews.length}} total reviews
+      </p>
+    </div>
+  </div>
+
+  <div class="container py-5">
+
+    <div class="skeleton"
+         style="height:400px;border-radius:16px"
+         *ngIf="isLoading">
+    </div>
+
+    <div class="reviews-grid" *ngIf="!isLoading">
+      <div class="review-card"
+           *ngFor="let review of reviews">
+        <div class="review-header">
+          <div class="reviewer-info">
+            <div class="reviewer-avatar">
+              U{{review.userId}}
+            </div>
+            <div>
+              <div class="reviewer-name">
+                User #{{review.userId}}
+                <span class="verified-badge"
+                      *ngIf="review.verified">
+                  <i class="fas fa-check-circle"></i>
+                  Verified
+                </span>
+              </div>
+              <div class="review-meta">
+                Book #{{review.bookId}} •
+                {{review.reviewDate}}
+              </div>
+            </div>
+          </div>
+          <button class="btn-delete"
+                  [disabled]="
+                  deletingReview === review.reviewId"
+                  (click)="deleteReview(review.reviewId)">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+        <div class="review-stars">
+          <i class="fas fa-star"
+             *ngFor="let s of getStars(review.rating)">
+          </i>
+          <span class="ms-2">{{review.rating}}/5</span>
+        </div>
+        <p class="review-comment">{{review.comment}}</p>
+      </div>
+
+      <div class="empty-table"
+           *ngIf="reviews.length === 0">
+        <i class="fas fa-star"></i>
+        <p>No reviews found</p>
+      </div>
+    </div>
+
+  </div>
+</div>

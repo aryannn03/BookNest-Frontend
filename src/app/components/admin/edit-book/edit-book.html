@@ -1,0 +1,161 @@
+<div class="admin-page">
+
+  <div class="admin-header">
+    <div class="container">
+      <div class="d-flex align-items-center gap-3">
+        <a routerLink="/admin/books"
+           class="btn-back">
+          <i class="fas fa-arrow-left"></i>
+        </a>
+        <div>
+         <h1 class="page-title">
+           Edit <span class="gradient-text">Book</span>
+         </h1>
+          <p class="page-subtitle">
+            Add a new book to the catalog
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="form-card">
+
+          <div class="row g-4">
+
+            <!-- Title -->
+            <div class="col-md-8">
+              <label class="form-label">Title *</label>
+              <input type="text"
+                     class="form-control-custom"
+                     placeholder="Book title"
+                     [(ngModel)]="bookForm.title">
+            </div>
+
+            <!-- Featured -->
+            <div class="col-md-4">
+              <label class="form-label">Featured</label>
+              <div class="toggle-wrapper">
+                <label class="toggle">
+                  <input type="checkbox"
+                         [(ngModel)]="bookForm.featured">
+                  <span class="toggle-slider"></span>
+                </label>
+                <span class="toggle-label">
+                  {{bookForm.featured ? 'Yes' : 'No'}}
+                </span>
+              </div>
+            </div>
+
+            <!-- Author -->
+            <div class="col-md-6">
+              <label class="form-label">Author *</label>
+              <input type="text"
+                     class="form-control-custom"
+                     placeholder="Author name"
+                     [(ngModel)]="bookForm.author">
+            </div>
+
+            <!-- ISBN -->
+            <div class="col-md-6">
+              <label class="form-label">ISBN</label>
+              <input type="text"
+                     class="form-control-custom"
+                     placeholder="ISBN number"
+                     [(ngModel)]="bookForm.isbn">
+            </div>
+
+            <!-- Genre -->
+            <div class="col-md-6">
+              <label class="form-label">Genre</label>
+              <select class="form-control-custom"
+                      [(ngModel)]="bookForm.genre">
+                <option value="">Select genre</option>
+                <option *ngFor="let g of genres"
+                        [value]="g">{{g}}</option>
+              </select>
+            </div>
+
+            <!-- Publisher -->
+            <div class="col-md-6">
+              <label class="form-label">Publisher</label>
+              <input type="text"
+                     class="form-control-custom"
+                     placeholder="Publisher name"
+                     [(ngModel)]="bookForm.publisher">
+            </div>
+
+            <!-- Price -->
+            <div class="col-md-4">
+              <label class="form-label">Price (₹) *</label>
+              <input type="number"
+                     class="form-control-custom"
+                     placeholder="0.00"
+                     [(ngModel)]="bookForm.price">
+            </div>
+
+            <!-- Stock -->
+            <div class="col-md-4">
+              <label class="form-label">Stock</label>
+              <input type="number"
+                     class="form-control-custom"
+                     placeholder="0"
+                     [(ngModel)]="bookForm.stock">
+            </div>
+
+            <!-- Published Date -->
+            <div class="col-md-4">
+              <label class="form-label">
+                Published Date
+              </label>
+              <input type="date"
+                     class="form-control-custom"
+                     [(ngModel)]="bookForm.publishedDate">
+            </div>
+
+            <!-- Cover Image URL -->
+            <div class="col-12">
+              <label class="form-label">
+                Cover Image URL
+              </label>
+              <input type="url"
+                     class="form-control-custom"
+                     placeholder="https://..."
+                     [(ngModel)]="bookForm.coverImageUrl">
+            </div>
+
+            <!-- Description -->
+            <div class="col-12">
+              <label class="form-label">Description</label>
+              <textarea class="form-control-custom"
+                        rows="4"
+                        placeholder="Book description..."
+                        [(ngModel)]="bookForm.description">
+              </textarea>
+            </div>
+
+            <!-- Actions -->
+            <div class="col-12">
+              <div class="form-actions">
+                <a routerLink="/admin/books"
+                   class="btn-cancel">
+                  Cancel
+                </a>
+                <button class="btn-submit"
+                        [disabled]="isSubmitting"
+                        (click)="updateBook()">
+                        <i class="fas fa-save me-2"></i>
+                  {{isSubmitting ? 'Saving...' : 'Save Changes'}}
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

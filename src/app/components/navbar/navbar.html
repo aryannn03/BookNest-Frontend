@@ -1,0 +1,295 @@
+<nav class="navbar navbar-expand-lg sticky-top" id="mainNavbar">
+  <div class="container">
+
+    <!-- Brand -->
+    <a class="navbar-brand" routerLink="/home">
+      <div class="brand-logo">
+        <i class="fas fa-book-open"></i>
+      </div>
+      <span class="brand-text">Book<span class="brand-accent">Nest</span></span>
+    </a>
+
+    <!-- Toggler -->
+    <button class="navbar-toggler" type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarContent">
+      <i class="fas fa-bars text-white"></i>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarContent">
+
+      <!-- Left Links -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/home"
+             routerLinkActive="active">
+            <i class="fas fa-home me-1"></i>Home
+          </a>
+        </li>
+        <li class="nav-item">
+                <a class="nav-link" routerLink="/books"
+                   routerLinkActive="active">
+                  <i class="fas fa-book me-1"></i>Browse
+                </a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#"
+                   data-bs-toggle="dropdown">
+                  <i class="fas fa-tags me-1"></i>Genres
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark genre-dropdown">
+      
+        <li>
+          <a class="dropdown-item" routerLink="/books" [queryParams]="{genre:'Fiction'}">
+            <i class="fas fa-feather me-2"></i>Fiction
+          </a>
+        </li>
+      
+        <li>
+          <a class="dropdown-item" routerLink="/books" [queryParams]="{genre:'Non-Fiction'}">
+            <i class="fas fa-book me-2"></i>Non-Fiction
+          </a>
+        </li>
+      
+        <li>
+          <a class="dropdown-item" routerLink="/books" [queryParams]="{genre:'Programming'}">
+            <i class="fas fa-code me-2"></i>Programming
+          </a>
+        </li>
+      
+        <li>
+          <a class="dropdown-item" routerLink="/books" [queryParams]="{genre:'Science'}">
+            <i class="fas fa-flask me-2"></i>Science
+          </a>
+        </li>
+      
+        <li>
+          <a class="dropdown-item" routerLink="/books" [queryParams]="{genre:'History'}">
+            <i class="fas fa-landmark me-2"></i>History
+          </a>
+        </li>
+      
+        <li>
+          <a class="dropdown-item" routerLink="/books" [queryParams]="{genre:'Biography'}">
+            <i class="fas fa-user me-2"></i>Biography
+          </a>
+        </li>
+      
+        <li>
+          <a class="dropdown-item" routerLink="/books" [queryParams]="{genre:'Self-Help'}">
+            <i class="fas fa-star me-2"></i>Self-Help
+          </a>
+        </li>
+      
+        <li>
+          <a class="dropdown-item" routerLink="/books" [queryParams]="{genre:'Fantasy'}">
+            <i class="fas fa-hat-wizard me-2"></i>Fantasy
+          </a>
+        </li>
+      
+        <li>
+          <a class="dropdown-item" routerLink="/books" [queryParams]="{genre:'Mystery'}">
+            <i class="fas fa-user-secret me-2"></i>Mystery
+          </a>
+        </li>
+      
+        <li>
+          <a class="dropdown-item" routerLink="/books" [queryParams]="{genre:'Romance'}">
+            <i class="fas fa-heart me-2"></i>Romance
+          </a>
+        </li>
+      
+        <li>
+          <a class="dropdown-item" routerLink="/books" [queryParams]="{genre:'Thriller'}">
+            <i class="fas fa-bolt me-2"></i>Thriller
+          </a>
+        </li>
+      
+        <li>
+          <a class="dropdown-item" routerLink="/books" [queryParams]="{genre:'Children'}">
+            <i class="fas fa-child me-2"></i>Children
+          </a>
+        </li>
+      
+      </ul>
+        </li>
+      </ul>
+
+      <!-- Search Bar -->
+       <input type="text" name="username" autocomplete="username" style="display:none">
+       <input type="password" name="password" autocomplete="current-password" style="display:none">
+      <div class="search-container me-3">
+        <div class="search-input-wrapper">
+          <i class="fas fa-search search-icon"></i>
+          <input type="text"
+                 class="search-input"
+                 placeholder="Search books, authors..."
+                 autocomplete="off"
+                 [(ngModel)]="searchKeyword"
+                 (keyup.enter)="search()">
+          <button class="search-btn" (click)="search()">
+            Search
+          </button>
+        </div>
+      </div>
+
+      <!-- Right Links -->
+      <ul class="navbar-nav">
+
+        <!-- Guest User -->
+        <ng-container *ngIf="!isLoggedIn">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/login">
+              <i class="fas fa-sign-in-alt me-1"></i>Login
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-primary-custom ms-2"
+               routerLink="/register">
+              Get Started
+            </a>
+          </li>
+        </ng-container>
+
+        <!-- Logged In Customer -->
+        <ng-container *ngIf="isLoggedIn && !isAdmin">
+
+          <!-- Cart -->
+          <li class="nav-item">
+            <a class="nav-link position-relative"
+               routerLink="/cart">
+              <i class="fas fa-shopping-cart"></i>
+              <span class="badge-count" *ngIf="cartCount > 0">
+                {{cartCount}}
+              </span>
+            </a>
+          </li>
+
+          <!-- Notifications -->
+          <li class="nav-item">
+            <a class="nav-link position-relative"
+               routerLink="/notifications">
+              <i class="fas fa-bell"></i>
+              <span class="badge-count"
+                    *ngIf="unreadCount > 0">
+                {{unreadCount}}
+              </span>
+            </a>
+          </li>
+
+          <!-- Wishlist -->
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/wishlist">
+              <i class="fas fa-heart"></i>
+            </a>
+          </li>
+
+          <!-- User Dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle user-menu"
+               href="#" data-bs-toggle="dropdown">
+              <div class="user-avatar">
+                {{fullName.charAt(0).toUpperCase()}}
+              </div>
+              <span class="ms-2">{{fullName}}</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark
+                        dropdown-menu-end user-dropdown">
+              <li class="dropdown-header">
+                <div class="user-info">
+                  <div class="user-avatar-lg">
+                    {{fullName.charAt(0).toUpperCase()}}
+                  </div>
+                  <div>
+                    <div class="fw-bold">{{fullName}}</div>
+                    <small class="text-muted">Customer</small>
+                  </div>
+                </div>
+              </li>
+              <li><hr class="dropdown-divider"></li>
+              <li>
+                <a class="dropdown-item"
+                   routerLink="/profile">
+                  <i class="fas fa-user me-2"></i>Profile
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item"
+                   routerLink="/my-orders">
+                  <i class="fas fa-box me-2"></i>My Orders
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item"
+                   routerLink="/wallet">
+                  <i class="fas fa-wallet me-2"></i>My Wallet
+                </a>
+              </li>
+              <li><hr class="dropdown-divider"></li>
+              <li>
+                <a class="dropdown-item text-danger"
+                   (click)="logout()" style="cursor:pointer">
+                  <i class="fas fa-sign-out-alt me-2"></i>Logout
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ng-container>
+
+        <!-- Admin User -->
+        <ng-container *ngIf="isLoggedIn && isAdmin">
+          <li class="nav-item">
+            <a class="nav-link"
+               routerLink="/admin/dashboard">
+              <i class="fas fa-tachometer-alt me-1"></i>Dashboard
+            </a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle user-menu"
+               href="#" data-bs-toggle="dropdown">
+              <div class="user-avatar admin-avatar">
+                <i class="fas fa-shield-alt"></i>
+              </div>
+              <span class="ms-2">Admin</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark
+                        dropdown-menu-end user-dropdown">
+              <li>
+                <a class="dropdown-item"
+                   routerLink="/admin/books">
+                  <i class="fas fa-book me-2"></i>Manage Books
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item"
+                   routerLink="/admin/orders">
+                  <i class="fas fa-box me-2"></i>Manage Orders
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item"
+                   routerLink="/admin/users">
+                  <i class="fas fa-users me-2"></i>Manage Users
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item"
+                   routerLink="/admin/inventory">
+                  <i class="fas fa-warehouse me-2"></i>Inventory
+                </a>
+              </li>
+              <li><hr class="dropdown-divider"></li>
+              <li>
+                <a class="dropdown-item text-danger"
+                   (click)="logout()" style="cursor:pointer">
+                  <i class="fas fa-sign-out-alt me-2"></i>Logout
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ng-container>
+
+      </ul>
+    </div>
+  </div>
+</nav>

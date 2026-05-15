@@ -1,0 +1,150 @@
+.page-header {
+  background: linear-gradient(135deg, #1A1A2E, #16213E);
+  border-bottom: 1px solid rgba(108, 99, 255, 0.2);
+  padding: 60px 0 40px;
+}
+
+.page-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+}
+
+/* ─── Profile Card ──────────────────────────────────────────── */
+.profile-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--border-radius);
+  padding: 32px;
+  text-align: center;
+  position: sticky;
+  top: 80px;
+}
+
+.profile-avatar {
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, #6C63FF, #FF6584);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin: 0 auto 20px;
+  box-shadow: 0 10px 30px rgba(108, 99, 255, 0.4);
+}
+
+.profile-name {
+  color: white;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.profile-email {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin-bottom: 16px;
+}
+
+.profile-role {
+  background: rgba(108, 99, 255, 0.15);
+  border: 1px solid rgba(108, 99, 255, 0.3);
+  border-radius: 50px;
+  color: var(--primary-light);
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  padding: 6px 16px;
+}
+
+.profile-provider,
+.profile-joined {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  margin-top: 8px;
+}
+
+/* ─── Tabs ──────────────────────────────────────────────────── */
+.profile-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.tab-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 10px 20px;
+  transition: all 0.3s ease;
+}
+
+.tab-btn:hover,
+.tab-btn.active {
+  background: rgba(108, 99, 255, 0.2);
+  border-color: var(--primary);
+  color: white;
+}
+
+/* ─── Form Card ─────────────────────────────────────────────── */
+.profile-form-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--border-radius);
+  padding: 28px;
+  animation: fadeIn 0.3s ease;
+}
+
+.form-title {
+  color: white;
+  font-weight: 700;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.form-control-custom:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-save {
+  background: linear-gradient(135deg, #6C63FF, #FF6584);
+  border: none;
+  border-radius: 12px;
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  padding: 12px 32px;
+  transition: all 0.3s ease;
+}
+
+.btn-save:hover:not(:disabled) {
+  box-shadow: 0 8px 25px rgba(108, 99, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+.btn-save:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}

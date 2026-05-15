@@ -1,0 +1,180 @@
+<div class="orders-page">
+
+  <!-- Header -->
+  <div class="page-header">
+    <div class="container">
+      <h1 class="page-title">
+        My <span class="gradient-text">Orders</span>
+      </h1>
+      <p class="page-subtitle">
+        Track and manage your orders
+      </p>
+    </div>
+  </div>
+
+  <div class="container py-5">
+
+    <!-- Status Filter -->
+    <div class="status-filter">
+      <button *ngFor="let status of statuses"
+              class="filter-btn"
+              [class.active]="selectedStatus === status"
+              (click)="filterByStatus(status)">
+        {{status}}
+      </button>
+    </div>
+
+    <!-- Loading -->
+    <div *ngIf="isLoading">
+      <div class="skeleton mb-3"
+           style="height:120px;border-radius:16px"
+           *ngFor="let s of [1,2,3]">
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state"
+         *ngIf="!isLoading && filteredOrders.length === 0">
+      <i class="fas fa-box-open"></i>
+      <h4>No orders found</h4>
+      <p>You haven't placed any orders yet</p>
+      <a routerLink="/books"
+         class="btn btn-primary-custom mt-3">
+        Start Shopping
+      </a>
+    </div>
+
+    <!-- Orders List -->
+    <div class="orders-list" *ngIf="!isLoading">
+      <div class="order-card animate__animated animate__fadeIn"
+           *ngFor="let order of filteredOrders">
+
+        <!-- Order Header -->
+        <div class="order-header">
+          <div class="order-id">
+            <i class="fas fa-receipt me-2"
+               style="color:var(--primary)"></i>
+            Order #{{order.orderId}}
+          </div>
+          <div class="order-date">
+            <i class="fas fa-calendar me-1"></i>
+            {{order.orderDate}}
+          </div>
+          <div class="order-status"
+               [class]="getStatusClass(order.orderStatus)">
+            <i [class]="getStatusIcon(order.orderStatus)
+                        + ' me-1'"></i>
+            {{order.orderStatus}}
+          </div>
+        </div>
+
+        <!-- Order Body -->
+        <div class="order-body">
+          <div class="order-book">
+            <div class="book-icon">
+              <i class="fas fa-book"></i>
+            </div>
+            <div class="book-details">
+              <h6>{{order.bookTitle}}</h6>
+              <p>Quantity: {{order.quantity}}</p>
+              <p>Rs. {{order.bookPrice}} x {{order.quantity}}</p>
+            </div>
+          </div>
+
+          <div class="order-info">
+            <div class="info-item">
+              <span class="info-label">Payment</span>
+              <span class="info-value">
+                <i class="fas me-1"
+                    [class.fa-money-bill-wave]="order.modeOfPayment === 'COD'"
+                    [class.fa-wallet]="order.modeOfPayment === 'WALLET'"
+                    [class.fa-credit-card]="order.modeOfPayment === 'RAZORPAY'"></i>
+                {{order.modeOfPayment}}
+              </span>
+            </div>
+            <div class="info-item">
+              <span class="info-label">Amount Paid</span>
+              <span class="info-value amount">
+                Rs. {{order.amountPaid | number:'1.2-2'}}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Order Progress -->
+        <div class="order-progress"
+             *ngIf="order.orderStatus !== 'Cancelled'">
+          <div class="progress-step"
+               [class.done]="['Placed','Confirmed',
+               'Dispatched','Delivered'].includes(
+               order.orderStatus)">
+            <i class="fas fa-check"></i>
+            <span>Placed</span>
+          </div>
+          <div class="progress-line"
+               [class.done]="['Confirmed','Dispatched',
+               'Delivered'].includes(
+               order.orderStatus)"></div>
+          <div class="progress-step"
+               [class.done]="['Confirmed','Dispatched',
+               'Delivered'].includes(
+               order.orderStatus)">
+            <i class="fas fa-check"></i>
+            <span>Confirmed</span>
+          </div>
+          <div class="progress-line"
+               [class.done]="['Dispatched',
+               'Delivered'].includes(
+               order.orderStatus)"></div>
+          <div class="progress-step"
+               [class.done]="['Dispatched',
+               'Delivered'].includes(
+               order.orderStatus)">
+            <i class="fas fa-truck"></i>
+            <span>Dispatched</span>
+          </div>
+          <div class="progress-line"
+               [class.done]="order.orderStatus ===
+               'Delivered'"></div>
+          <div class="progress-step"
+               [class.done]="order.orderStatus ===
+               'Delivered'">
+            <i class="fas fa-box-open"></i>
+            <span>Delivered</span>
+          </div>
+        </div>
+
+        <!-- Order Footer -->
+        <div class="order-footer">
+
+          <!-- Cancel — only for Placed / Confirmed -->
+          <button class="btn-cancel"
+                  *ngIf="canCancel(order.orderStatus)"
+                  [disabled]="cancellingOrder === order.orderId"
+                  (click)="cancelOrder(order.orderId)">
+            <i class="fas fa-times me-1"></i>
+            {{cancellingOrder === order.orderId
+              ? 'Cancelling...' : 'Cancel Order'}}
+          </button>
+
+          <!-- Invoice — only for Delivered orders -->
+          <button class="btn-invoice"
+                  *ngIf="order.orderStatus === 'Delivered'"
+                  (click)="downloadInvoice(order)">
+            <i class="fas fa-file-invoice-dollar me-1"></i>
+            Download Invoice
+          </button>
+
+          <!-- Write Review -->
+          <a [routerLink]="['/books', order.bookId]"
+             class="btn-review">
+            <i class="fas fa-star me-1"></i>
+            Write Review
+          </a>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

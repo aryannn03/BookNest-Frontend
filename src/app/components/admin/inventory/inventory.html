@@ -1,0 +1,167 @@
+<div class="admin-page">
+
+  <div class="admin-header">
+    <div class="container">
+      <h1 class="page-title">
+        <span class="gradient-text">Inventory</span>
+        Management
+      </h1>
+
+      <p class="page-subtitle">
+        Manage stock levels for all books
+      </p>
+    </div>
+  </div>
+
+  <div class="container py-5">
+
+    <!-- Stock Summary -->
+    <div class="row g-4 mb-5">
+
+      <div class="col-md-4">
+        <div class="stock-summary-card good-card">
+          <i class="fas fa-check-circle"></i>
+          <div class="summary-count">
+            {{ inStockCount }}
+          </div>
+          <div>In Stock</div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="stock-summary-card low-card">
+          <i class="fas fa-exclamation-triangle"></i>
+          <div class="summary-count">
+            {{ lowStockCount }}
+          </div>
+          <div>Low Stock (&lt; 5)</div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="stock-summary-card out-card">
+          <i class="fas fa-times-circle"></i>
+          <div class="summary-count">
+            {{ outOfStockCount }}
+          </div>
+          <div>Out of Stock</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Loader -->
+    <div
+      class="skeleton"
+      style="height:400px;border-radius:16px"
+      *ngIf="isLoading">
+    </div>
+
+    <!-- Table -->
+    <div class="admin-table-wrapper" *ngIf="!isLoading">
+
+      <table class="admin-table">
+
+        <thead>
+          <tr>
+            <th>Book</th>
+            <th>Genre</th>
+            <th>Current Stock</th>
+            <th>Status</th>
+            <th>Update Stock</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr *ngFor="let book of books">
+
+            <td>
+              <div class="book-info-cell">
+
+                <div class="book-icon-sm">
+                  <i class="fas fa-book"></i>
+                </div>
+
+                <div>
+                  <div class="book-title-cell">
+                    {{ book.title }}
+                  </div>
+
+                  <div class="book-author-cell">
+                    {{ book.author }}
+                  </div>
+                </div>
+
+              </div>
+            </td>
+
+            <td>
+              <span class="genre-tag">
+                {{ book.genre }}
+              </span>
+            </td>
+
+            <td>
+              <span class="stock-number">
+                {{ book.stock }}
+              </span>
+            </td>
+
+            <td>
+              <span
+                class="stock-status"
+                [class]="'stock-' + getStockStatus(book.stock)">
+
+                <i
+                  class="fas me-1"
+                  [class.fa-check-circle]="book.stock >= 5"
+                  [class.fa-exclamation-triangle]="book.stock > 0 && book.stock < 5"
+                  [class.fa-times-circle]="book.stock === 0">
+                </i>
+
+                {{
+                  book.stock === 0
+                    ? 'Out of Stock'
+                    : book.stock < 5
+                    ? 'Low Stock'
+                    : 'In Stock'
+                }}
+
+              </span>
+            </td>
+
+            <td>
+              <input
+                type="number"
+                class="stock-input"
+                min="0"
+                [(ngModel)]="newStockValues[book.bookId]">
+            </td>
+
+            <td>
+              <button
+                class="btn-update-stock"
+                [disabled]="updatingBook === book.bookId"
+                (click)="updateStock(book.bookId)">
+
+                {{
+                  updatingBook === book.bookId
+                    ? 'Updating...'
+                    : 'Update'
+                }}
+
+              </button>
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+</div>

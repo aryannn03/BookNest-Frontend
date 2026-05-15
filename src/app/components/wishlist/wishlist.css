@@ -1,0 +1,161 @@
+.page-header {
+  background: linear-gradient(135deg, #1A1A2E, #16213E);
+  border-bottom: 1px solid rgba(108, 99, 255, 0.2);
+  padding: 60px 0 40px;
+}
+
+.page-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.page-subtitle { color: var(--text-secondary); }
+
+.wishlist-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-bottom: 24px;
+}
+
+.btn-clear-all {
+  background: rgba(255, 101, 132, 0.1);
+  border: 1px solid rgba(255, 101, 132, 0.3);
+  border-radius: 8px;
+  color: #FF6584;
+  cursor: pointer;
+  font-size: 0.8rem;
+  padding: 6px 14px;
+  transition: all 0.3s ease;
+}
+
+.btn-clear-all:hover {
+  background: rgba(255, 101, 132, 0.2);
+}
+
+/* ─── Wishlist Card ─────────────────────────────────────────── */
+.wishlist-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--border-radius);
+  padding: 24px;
+  transition: var(--transition);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.wishlist-card:hover {
+  border-color: rgba(255, 101, 132, 0.4);
+  box-shadow: 0 0 30px rgba(255, 101, 132, 0.15);
+  transform: translateY(-4px);
+}
+
+.wishlist-book-icon {
+  width: 60px;
+  height: 80px;
+  background: linear-gradient(135deg,
+      rgba(108, 99, 255, 0.2),
+      rgba(255, 101, 132, 0.2));
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  font-size: 1.5rem;
+}
+
+.wishlist-title {
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.wishlist-price {
+  background: linear-gradient(135deg, #6C63FF, #FF6584);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.wishlist-details { flex: 1; }
+
+.wishlist-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-move-cart {
+  flex: 1;
+  background: linear-gradient(135deg, #6C63FF, #FF6584);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 10px;
+  transition: all 0.3s ease;
+}
+
+.btn-move-cart:hover:not(:disabled) {
+  box-shadow: 0 6px 20px rgba(108, 99, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+.btn-move-cart:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.btn-remove-wish {
+  background: rgba(255, 101, 132, 0.1);
+  border: 1px solid rgba(255, 101, 132, 0.3);
+  border-radius: 10px;
+  color: #FF6584;
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 10px 14px;
+  transition: all 0.3s ease;
+}
+
+.btn-remove-wish:hover:not(:disabled) {
+  background: rgba(255, 101, 132, 0.2);
+}
+
+/* ─── Empty State ───────────────────────────────────────────── */
+.empty-state {
+  text-align: center;
+  padding: 100px 20px;
+}
+
+.empty-icon {
+  width: 100px;
+  height: 100px;
+  background: rgba(255, 101, 132, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+  font-size: 2.5rem;
+  color: #FF6584;
+}
+
+.empty-state h3 {
+  color: white;
+  margin-bottom: 8px;
+}
+
+.empty-state p {
+  color: var(--text-muted);
+  margin-bottom: 32px;
+}

@@ -1,0 +1,95 @@
+<div class="admin-page">
+
+  <div class="admin-header">
+    <div class="container">
+      <h1 class="page-title">
+        Manage <span class="gradient-text">Users</span>
+      </h1>
+      <p class="page-subtitle">
+        {{users.length}} registered customers
+      </p>
+    </div>
+  </div>
+
+  <div class="container py-5">
+
+    <div class="skeleton"
+         style="height:400px;border-radius:16px"
+         *ngIf="isLoading">
+    </div>
+
+    <div class="admin-table-wrapper" *ngIf="!isLoading">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>User</th>
+            <th>Email</th>
+            <th>Mobile</th>
+            <th>Provider</th>
+            <th>Joined</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users">
+            <td class="text-muted">{{user.userId}}</td>
+            <td>
+              <div class="user-cell">
+                <div class="user-avatar">
+                  {{getInitial(user.fullName)}}
+                </div>  
+                <span class="user-name">
+                  {{user.fullName}}
+                </span>
+              </div>
+            </td>
+            <td class="text-muted">{{user.email}}</td>
+            <td class="text-muted">
+              {{user.mobile || 'N/A'}}
+            </td>
+            <td>
+              <span class="provider-badge"
+                    [class.github-badge]="user.provider === 'GITHUB'"
+                    [class.google-badge]="user.provider === 'GOOGLE'"
+                    [class.local-badge]="user.provider === 'LOCAL'">
+            
+                <i class="fab fa-github me-1"
+                   *ngIf="user.provider === 'GITHUB'">
+                </i>
+            
+                <i class="fab fa-google me-1"
+                   *ngIf="user.provider === 'GOOGLE'">
+                </i>
+            
+                <i class="fas fa-envelope me-1"
+                   *ngIf="user.provider === 'LOCAL'">
+                </i>
+            
+                {{user.provider}}
+              </span>
+            </td>
+            <td class="text-muted">
+              {{user.createdAt | date:'mediumDate'}}
+            </td>
+            <td>
+              <button class="btn-delete"
+                      [disabled]="
+                      deletingUser === user.userId"
+                      (click)="deleteUser(user.userId)">
+                <i class="fas fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="empty-table"
+           *ngIf="users.length === 0">
+        <i class="fas fa-users"></i>
+        <p>No users found</p>
+      </div>
+    </div>
+
+  </div>
+</div>

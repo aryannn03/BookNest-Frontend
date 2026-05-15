@@ -1,0 +1,260 @@
+<div class="home-page">
+
+  <!-- ─── Hero Section ──────────────────────────────────────── -->
+  <section class="hero-section">
+    <div class="hero-particles">
+      <div class="particle" *ngFor="let p of [1,2,3,4,5,6,7,8]"></div>
+    </div>
+    <div class="container">
+      <div class="row align-items-center min-vh-85">
+        <div class="col-lg-6 hero-content animate__animated animate__fadeInLeft">
+          <div class="hero-badge mb-3">
+            <i class="fas fa-star me-2"></i>
+            Premium Bookstore Experience
+          </div>
+          <h1 class="hero-title">
+            Discover Your Next
+            <span class="gradient-text">Favourite</span>
+            Book
+          </h1>
+          <p class="hero-subtitle">
+            Explore thousands of books across every genre.
+            From timeless classics to modern masterpieces —
+            your next great read is just a click away.
+          </p>
+          <div class="hero-actions">
+            <a routerLink="/books"
+               class="btn btn-primary-custom btn-lg me-3">
+              <i class="fas fa-book-open me-2"></i>
+              Browse Books
+            </a>
+            <a routerLink="/register"
+               class="btn btn-outline-custom btn-lg"
+               *ngIf="!isLoggedIn">
+              Join Free
+              <i class="fas fa-arrow-right ms-2"></i>
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-6 hero-image animate__animated
+                    animate__fadeInRight d-none d-lg-block">
+          <div class="hero-books-display">
+            <div class="floating-card card-1">
+              <i class="fas fa-book-open"></i>
+              <span>New Releases</span>
+            </div>
+            <div class="floating-card card-2">
+              <i class="fas fa-star"></i>
+              <span>Top Rated</span>
+            </div>
+            <div class="floating-card card-3">
+              <i class="fas fa-truck"></i>
+              <span>Fast Delivery</span>
+            </div>
+            <div class="books-stack">
+              <div class="book-spine" style="background: linear-gradient(180deg, #6C63FF, #5548E0)"></div>
+              <div class="book-spine" style="background: linear-gradient(180deg, #FF6584, #FF4757)"></div>
+              <div class="book-spine" style="background: linear-gradient(180deg, #43E97B, #38F9D7)"></div>
+              <div class="book-spine" style="background: linear-gradient(180deg, #F6C90E, #FF9F43)"></div>
+              <div class="book-spine" style="background: linear-gradient(180deg, #764ba2, #667eea)"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Stats Section ────────────────────────────────────── -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item animate__animated animate__fadeInUp"
+             *ngFor="let stat of stats">
+          <div class="stat-icon">
+            <i [class]="stat.icon"></i>
+          </div>
+          <div class="stat-value">{{stat.value}}</div>
+          <div class="stat-label">{{stat.label}}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Genres Section ───────────────────────────────────── -->
+  <section class="section-padding">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="section-title">
+          Browse by <span class="gradient-text">Genre</span>
+        </h2>
+        <p class="section-subtitle">
+          Find books in your favourite category
+        </p>
+      </div>
+      <div class="row g-3">
+        <div class="col-6 col-md-4 col-lg-2"
+             *ngFor="let genre of genres">
+          <a [routerLink]="['/books']"
+             [queryParams]="{genre: genre.name}"
+             class="genre-card text-decoration-none">
+            <div class="genre-icon"
+                 [style.background]="genre.color + '20'"
+                 [style.color]="genre.color">
+              <i [class]="genre.icon"></i>
+            </div>
+            <span class="genre-name">{{genre.name}}</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Featured Books ───────────────────────────────────── -->
+  <section class="section-padding featured-section">
+    <div class="container">
+      <div class="d-flex justify-content-between
+                  align-items-center mb-5">
+        <div>
+          <h2 class="section-title mb-1">
+            Featured <span class="gradient-text">Books</span>
+          </h2>
+          <p class="text-muted">
+            Handpicked selections for you
+          </p>
+        </div>
+        <a routerLink="/books"
+           class="btn btn-outline-custom">
+          View All <i class="fas fa-arrow-right ms-2"></i>
+        </a>
+      </div>
+
+      <!-- Loading Skeleton -->
+      <div class="row g-4" *ngIf="isLoading">
+        <div class="col-6 col-md-4 col-lg-2"
+             *ngFor="let s of [1,2,3,4,5,6]">
+          <div class="book-card-skeleton">
+            <div class="skeleton" style="height:200px;
+                 border-radius:12px;margin-bottom:12px"></div>
+            <div class="skeleton" style="height:16px;
+                 width:80%;margin-bottom:8px"></div>
+            <div class="skeleton" style="height:14px;
+                 width:60%"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Books Grid -->
+      <div class="row g-4" *ngIf="!isLoading">
+        <div class="col-6 col-md-4 col-lg-2"
+             *ngFor="let book of featuredBooks">
+          <a [routerLink]="['/books', book.bookId]"
+             class="text-decoration-none">
+            <div class="book-card">
+              <div class="book-cover">
+                <img [src]="book.coverImageUrl ||
+                     'assets/default-book.png'"
+                     [alt]="book.title"
+                     onerror="this.src='https://via.placeholder.com/150x200/1A1A2E/6C63FF?text=Book'">
+                <div class="book-overlay">
+                  <button class="btn-view">
+                    <i class="fas fa-eye me-1"></i>View
+                  </button>
+                </div>
+                <div class="featured-badge">
+                  <i class="fas fa-star"></i>
+                </div>
+              </div>
+              <div class="book-info">
+                <h6 class="book-title">{{book.title}}</h6>
+                <p class="book-author">{{book.author}}</p>
+                <div class="book-footer">
+                  <span class="book-price">
+                    ₹{{book.price}}
+                  </span>
+                  <div class="book-rating">
+                    <i class="fas fa-star"></i>
+                    {{book.rating || '0.0'}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── Recent Books ─────────────────────────────────────── -->
+  <section class="section-padding">
+    <div class="container">
+      <div class="d-flex justify-content-between
+                  align-items-center mb-5">
+        <div>
+          <h2 class="section-title mb-1">
+            New <span class="gradient-text">Arrivals</span>
+          </h2>
+          <p class="text-muted">Fresh additions to our catalog</p>
+        </div>
+        <a routerLink="/books" class="btn btn-outline-custom">
+          View All <i class="fas fa-arrow-right ms-2"></i>
+        </a>
+      </div>
+      <div class="row g-4">
+        <div class="col-6 col-md-3 col-lg-3"
+             *ngFor="let book of recentBooks">
+          <a [routerLink]="['/books', book.bookId]"
+             class="text-decoration-none">
+            <div class="book-card horizontal-card">
+              <div class="row g-0">
+                <div class="col-4">
+                  <img [src]="book.coverImageUrl ||
+                       'assets/default-book.png'"
+                       [alt]="book.title"
+                       class="book-thumb"
+                       onerror="this.src='https://via.placeholder.com/80x100/1A1A2E/6C63FF?text=Book'">
+                </div>
+                <div class="col-8 p-3">
+                  <h6 class="book-title small">
+                    {{book.title}}
+                  </h6>
+                  <p class="book-author x-small">
+                    {{book.author}}
+                  </p>
+                  <span class="book-price small">
+                    ₹{{book.price}}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CTA Section ──────────────────────────────────────── -->
+  <section class="cta-section" *ngIf="!isLoggedIn">
+    <div class="container">
+      <div class="cta-card">
+        <div class="cta-content">
+          <h2>Ready to Start Reading?</h2>
+          <p>Join thousands of book lovers on BookNest today!</p>
+          <div class="cta-actions">
+            <a routerLink="/register"
+               class="btn btn-primary-custom btn-lg me-3">
+              Create Free Account
+            </a>
+            <a routerLink="/books"
+               class="btn btn-outline-custom btn-lg">
+              Browse Books
+            </a>
+          </div>
+        </div>
+        <div class="cta-decoration">
+          <i class="fas fa-book-reader"></i>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>

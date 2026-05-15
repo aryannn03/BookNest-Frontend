@@ -1,0 +1,83 @@
+<div class="notifications-page">
+
+  <div class="page-header">
+    <div class="container">
+      <div class="d-flex justify-content-between
+                  align-items-center">
+        <div>
+          <h1 class="page-title">
+            <span class="gradient-text">Notifications</span>
+          </h1>
+          <p class="page-subtitle">
+            {{unreadCount}} unread notifications
+          </p>
+        </div>
+        <button class="btn-mark-all"
+                *ngIf="unreadCount > 0"
+                (click)="markAllRead()">
+          <i class="fas fa-check-double me-2"></i>
+          Mark All Read
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container py-5">
+
+    <!-- Loading -->
+    <div *ngIf="isLoading">
+      <div class="skeleton mb-3"
+           style="height:80px;border-radius:12px"
+           *ngFor="let s of [1,2,3,4,5]">
+      </div>
+    </div>
+
+    <!-- Empty -->
+    <div class="empty-state"
+         *ngIf="!isLoading && notifications.length === 0">
+      <i class="fas fa-bell-slash"></i>
+      <h4>No notifications</h4>
+      <p>You're all caught up!</p>
+    </div>
+
+    <!-- Notifications -->
+    <div class="notifications-list" *ngIf="!isLoading">
+      <div class="notification-item"
+           [class.unread]="!notification.read"
+           *ngFor="let notification of notifications"
+           (click)="markAsRead(notification.notificationId)">
+
+        <div class="notif-icon"
+             [style.background]="getTypeColor(notification.type) + '20'"
+             [style.color]="getTypeColor(notification.type)">
+          <i [class]="getTypeIcon(notification.type)"></i>
+        </div>
+
+        <div class="notif-content">
+          <div class="notif-type">
+            {{ formatType(notification.type) }}
+          </div>
+          <div class="notif-message">
+            {{notification.message}}
+          </div>
+          <div class="notif-time">
+            {{notification.createdAt | date:'medium'}}
+          </div>
+        </div>
+
+        <div class="notif-actions">
+          <div class="unread-dot"
+               *ngIf="!notification.read"></div>
+          <button class="btn-delete-notif"
+                  (click)="deleteNotification(
+                    notification.notificationId);
+                    $event.stopPropagation()">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

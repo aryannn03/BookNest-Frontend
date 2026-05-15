@@ -1,0 +1,533 @@
+/* ─── Page Header ───────────────────────────────────────────── */
+.page-header {
+  background: linear-gradient(135deg, #1A1A2E, #16213E);
+  border-bottom: 1px solid rgba(108, 99, 255, 0.2);
+  padding: 40px 0;
+}
+
+.page-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin-bottom: 24px;
+}
+
+/* ─── Checkout Steps ────────────────────────────────────────── */
+.checkout-steps {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0.4;
+  transition: all 0.3s ease;
+}
+
+.step.active {
+  opacity: 1;
+}
+
+.step-circle {
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.step.active .step-circle {
+  background: linear-gradient(135deg, #6C63FF, #FF6584);
+  border-color: transparent;
+  box-shadow: 0 0 20px rgba(108, 99, 255, 0.5);
+}
+
+.step.completed .step-circle {
+  background: linear-gradient(135deg, #43E97B, #38F9D7);
+  border-color: transparent;
+}
+
+.step span {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.step.active span {
+  color: white;
+}
+
+.step-line {
+  flex: 1;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.1);
+  margin-bottom: 20px;
+  transition: background 0.3s ease;
+}
+
+.step-line.active {
+  background: linear-gradient(90deg, #6C63FF, #FF6584);
+}
+
+/* ─── Checkout Section ──────────────────────────────────────── */
+.checkout-section {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--border-radius);
+  padding: 28px;
+  animation: fadeIn 0.4s ease;
+}
+
+.section-title {
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* ─── Address Cards ─────────────────────────────────────────── */
+.address-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.address-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 2px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+  transition: all 0.3s ease;
+}
+
+.address-card:hover {
+  border-color: rgba(108, 99, 255, 0.3);
+}
+
+.address-card.selected {
+  background: rgba(108, 99, 255, 0.08);
+  border-color: var(--primary);
+}
+
+.address-radio {
+  color: var(--primary);
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.address-name {
+  color: white;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.address-text {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.address-phone {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  margin-top: 6px;
+}
+
+/* ─── Add Address Button ────────────────────────────────────── */
+.btn-add-address {
+  background: transparent;
+  border: 2px dashed rgba(108, 99, 255, 0.4);
+  border-radius: 12px;
+  color: var(--primary);
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 14px;
+  transition: all 0.3s ease;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.btn-add-address:hover {
+  background: rgba(108, 99, 255, 0.08);
+  border-color: var(--primary);
+}
+
+/* ─── Delete Address Button ─────────────────────────────────── */
+.btn-delete-address {
+  background: transparent;
+  border: none;
+  color: rgba(255, 101, 132, 0.5);
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 6px 8px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  margin-left: auto;
+  align-self: flex-start;
+}
+
+.btn-delete-address:hover {
+  color: #FF6584;
+  background: rgba(255, 101, 132, 0.1);
+}
+
+/* ─── Address Form ──────────────────────────────────────────── */
+.address-form {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  margin-bottom: 20px;
+  padding: 20px;
+  animation: fadeIn 0.3s ease;
+}
+
+/* ─── Payment Options ───────────────────────────────────────── */
+.payment-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.payment-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 2px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  position: relative;
+  transition: all 0.3s ease;
+  flex-wrap: wrap;
+}
+
+.payment-card:hover {
+  border-color: rgba(108, 99, 255, 0.3);
+}
+
+.payment-card.selected {
+  background: rgba(108, 99, 255, 0.08);
+  border-color: var(--primary);
+}
+
+.payment-radio {
+  color: var(--primary);
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.payment-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.cod-icon {
+  background: rgba(67, 233, 123, 0.15);
+  color: #43E97B;
+}
+
+.wallet-icon {
+  background: rgba(108, 99, 255, 0.15);
+  color: var(--primary);
+}
+
+.payment-name {
+  color: white;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.payment-desc {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+.insufficient {
+  color: #FF6584 !important;
+}
+
+.insufficient-warning {
+  background: rgba(255, 101, 132, 0.1);
+  border-radius: 8px;
+  color: #FF6584;
+  font-size: 0.8rem;
+  padding: 8px 12px;
+  width: 100%;
+}
+
+.insufficient-warning a {
+  color: var(--primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* ─── Review Items ──────────────────────────────────────────── */
+.review-items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.review-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 10px;
+  padding: 14px;
+}
+
+.review-item-icon {
+  width: 40px;
+  height: 40px;
+  background: rgba(108, 99, 255, 0.1);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+.review-item-title {
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.review-item-qty {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+.review-item-details {
+  flex: 1;
+}
+
+.review-item-total {
+  color: white;
+  font-weight: 700;
+  background: linear-gradient(135deg, #6C63FF, #FF6584);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.review-summary {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 10px;
+  margin-bottom: 24px;
+  padding: 16px;
+}
+
+.review-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+.review-row:last-child {
+  border-bottom: none;
+}
+
+.badge-method {
+  background: rgba(108, 99, 255, 0.15);
+  border: 1px solid rgba(108, 99, 255, 0.3);
+  border-radius: 50px;
+  color: var(--primary-light);
+  font-size: 0.8rem;
+  padding: 4px 12px;
+}
+
+/* ─── Step Actions ──────────────────────────────────────────── */
+.step-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.btn-next {
+  background: linear-gradient(135deg, #6C63FF, #FF6584);
+  border: none;
+  border-radius: 50px;
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  padding: 12px 28px;
+  transition: all 0.3s ease;
+}
+
+.btn-next:hover:not(:disabled) {
+  box-shadow: 0 8px 25px rgba(108, 99, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+.btn-next:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.btn-back {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-weight: 600;
+  padding: 12px 28px;
+  transition: all 0.3s ease;
+}
+
+.btn-back:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  color: white;
+}
+
+.btn-place-order {
+  background: linear-gradient(135deg, #43E97B, #38F9D7);
+  border: none;
+  border-radius: 50px;
+  color: #0F0F1A;
+  cursor: pointer;
+  font-weight: 700;
+  padding: 14px 36px;
+  transition: all 0.3s ease;
+}
+
+.btn-place-order:hover:not(:disabled) {
+  box-shadow: 0 8px 25px rgba(67, 233, 123, 0.4);
+  transform: translateY(-2px);
+}
+
+.btn-place-order:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* ─── Order Summary ─────────────────────────────────────────── */
+.order-summary {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--border-radius);
+  padding: 24px;
+}
+
+.summary-title {
+  color: white;
+  font-weight: 700;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.summary-items {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.summary-item-name {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  flex: 1;
+}
+
+.summary-item-name small {
+  color: var(--text-muted);
+}
+
+.summary-item-price {
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+
+.summary-divider {
+  border-color: rgba(255, 255, 255, 0.05);
+  margin: 14px 0;
+}
+
+.summary-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.total-amount {
+  font-size: 1.3rem;
+  background: linear-gradient(135deg, #6C63FF, #FF6584);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.payment-badge {
+  background: rgba(67, 233, 123, 0.1);
+  border: 1px solid rgba(67, 233, 123, 0.3);
+  border-radius: 8px;
+  color: #43E97B;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 10px;
+  text-align: center;
+}
+
+.wallet-badge {
+  background: rgba(108, 99, 255, 0.1);
+  border-color: rgba(108, 99, 255, 0.3);
+  color: var(--primary-light);
+}
