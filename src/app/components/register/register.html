@@ -166,7 +166,7 @@
                 </label>
                 <input type="text"
                        class="form-control-custom"
-                       placeholder="Enter your full name"
+                       placeholder="Enter full name"
                        [(ngModel)]="registerData.fullName"
                        name="fullName" required>
               </div>
@@ -190,11 +190,15 @@
                 <label class="form-label">
                   <i class="fas fa-phone me-2"></i>Mobile (Optional)
                 </label>
-                <input type="number"
-                       class="form-control-custom"
-                       placeholder="Enter your mobile number"
-                       [(ngModel)]="registerData.mobile"
-                       name="mobile">
+                <input type="tel"
+                   class="form-control-custom"
+                   placeholder="Enter mobile number"
+                   [(ngModel)]="registerData.mobile"
+                   name="mobile"
+                   maxlength="10"
+                   pattern="[6-9][0-9]{9}"
+                   inputmode="numeric"
+                   oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,10)">
               </div>
 
               <!-- Password -->

@@ -98,9 +98,13 @@
 
           <div class="form-group">
             <label class="form-label">Mobile Number</label>
-            <input type="number"
-                   class="form-control-custom"
-                   [(ngModel)]="profileForm.mobile">
+            <input type="tel"
+               class="form-control-custom"
+               [(ngModel)]="profileForm.mobile"
+               maxlength="10"
+               inputmode="numeric"
+               pattern="[6-9][0-9]{9}"
+               oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,10)">
           </div>
 
           <button class="btn-save"

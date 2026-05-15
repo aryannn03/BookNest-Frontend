@@ -131,9 +131,13 @@
 
               <div class="col-md-6">
                 <label class="form-label">Mobile *</label>
-                <input type="text"
-                       class="form-control-custom"
-                       [(ngModel)]="newAddress.mobileNumber">
+                <input type="tel"
+                   class="form-control-custom"
+                   [(ngModel)]="newAddress.mobileNumber"
+                   maxlength="10"
+                   inputmode="numeric"
+                   pattern="[6-9][0-9]{9}"
+                   oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,10)">
               </div>
 
               <div class="col-12">
