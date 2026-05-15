@@ -1,0 +1,91 @@
+<div class="search-page">
+
+  <div class="page-header">
+    <div class="container">
+      <h1 class="page-title">
+        Search Results for
+        <span class="gradient-text">"{{keyword}}"</span>
+      </h1>
+      <p class="page-subtitle">
+        {{books.length}} results found
+      </p>
+    </div>
+  </div>
+
+  <div class="container py-5">
+
+    <!-- Loading -->
+    <div class="row g-4" *ngIf="isLoading">
+      <div class="col-6 col-md-3"
+           *ngFor="let s of [1,2,3,4,5,6,7,8]">
+        <div class="skeleton"
+             style="height:280px;border-radius:16px">
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty -->
+    <div class="empty-state"
+         *ngIf="!isLoading && books.length === 0">
+      <i class="fas fa-search"></i>
+      <h4>No results for "{{keyword}}"</h4>
+      <p>Try a different search term</p>
+      <a routerLink="/books" class="btn btn-primary-custom">
+        Browse All Books
+      </a>
+    </div>
+
+    <!-- Results Grid -->
+    <div class="row g-4" *ngIf="!isLoading">
+      <div class="col-6 col-md-3"
+           *ngFor="let book of books">
+        <div class="book-card">
+          <a [routerLink]="['/books', book.bookId]"
+             class="text-decoration-none">
+            <div class="book-cover">
+              <img [src]="book.coverImageUrl ||
+                   'assets/default-book.png'"
+                   [alt]="book.title"
+                   onerror="this.src='https://via.placeholder.com/200x280/1A1A2E/6C63FF?text=📚'">
+              <div class="book-overlay">
+                <span class="btn-view">
+                  <i class="fas fa-eye me-1"></i>View
+                </span>
+              </div>
+            </div>
+          </a>
+          <div class="book-info">
+            <div class="book-genre">{{book.genre}}</div>
+            <h6 class="book-title">{{book.title}}</h6>
+            <p class="book-author">by {{book.author}}</p>
+            <div class="book-rating">
+              <i class="fas fa-star"
+                 *ngFor="let s of getStars(book.rating)">
+              </i>
+              <i class="far fa-star"
+                 *ngFor="let s of
+                 getEmptyStars(book.rating)"></i>
+            </div>
+            <div class="book-footer">
+              <span class="book-price">₹{{book.price}}</span>
+              <div class="book-actions">
+                <button class="btn-icon"
+                        (click)="addToWishlist(
+                          book.bookId, $event)">
+                  <i class="fas fa-heart"></i>
+                </button>
+                <button class="btn-icon btn-cart"
+                        [disabled]="book.stock === 0"
+                        (click)="addToCart(
+                          book.bookId, $event)">
+                  <i class="fas fa-cart-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

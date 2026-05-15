@@ -1,0 +1,480 @@
+<div class="checkout-page">
+
+  <!-- Header -->
+  <div class="page-header">
+    <div class="container">
+      <h1 class="page-title">
+        <span class="gradient-text">Checkout</span>
+      </h1>
+
+      <!-- Steps -->
+      <div class="checkout-steps">
+        <div class="step"
+             [class.active]="currentStep >= 1"
+             [class.completed]="currentStep > 1">
+          <div class="step-circle">
+            <i class="fas fa-map-marker-alt"
+               *ngIf="currentStep <= 1"></i>
+            <i class="fas fa-check"
+               *ngIf="currentStep > 1"></i>
+          </div>
+          <span>Address</span>
+        </div>
+
+        <div class="step-line"
+             [class.active]="currentStep > 1"></div>
+
+        <div class="step"
+             [class.active]="currentStep >= 2"
+             [class.completed]="currentStep > 2">
+          <div class="step-circle">
+            <i class="fas fa-credit-card"
+               *ngIf="currentStep <= 2"></i>
+            <i class="fas fa-check"
+               *ngIf="currentStep > 2"></i>
+          </div>
+          <span>Payment</span>
+        </div>
+
+        <div class="step-line"
+             [class.active]="currentStep > 2"></div>
+
+        <div class="step"
+             [class.active]="currentStep >= 3">
+          <div class="step-circle">
+            <i class="fas fa-check-circle"></i>
+          </div>
+          <span>Review</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container py-5">
+    <div class="row g-4">
+
+      <!-- LEFT COLUMN -->
+      <div class="col-lg-8">
+
+        <!-- STEP 1 -->
+        <div class="checkout-section"
+             *ngIf="currentStep === 1">
+
+          <h5 class="section-title">
+            <i class="fas fa-map-marker-alt me-2"
+               style="color:var(--primary)"></i>
+            Delivery Address
+          </h5>
+
+          <!-- Saved Addresses -->
+          <div class="address-grid">
+            <div class="address-card"
+                 *ngFor="let addr of addresses"
+                 [class.selected]="selectedAddressId === addr.addressId"
+                 (click)="selectedAddressId = addr.addressId">
+
+              <div class="address-radio">
+                <i class="fas fa-check-circle"
+                   *ngIf="selectedAddressId === addr.addressId"></i>
+
+                <i class="far fa-circle"
+                   *ngIf="selectedAddressId !== addr.addressId"></i>
+              </div>
+
+              <div class="address-details">
+                <div class="address-name">
+                  {{ addr.fullName }}
+                </div>
+
+                <div class="address-text">
+                  {{ addr.flatNumber }},
+                  {{ addr.street }},
+                  {{ addr.city }} - {{ addr.pincode }}
+                </div>
+
+                <div class="address-text">
+                  {{ addr.state }}
+                </div>
+
+                <div class="address-phone">
+                  <i class="fas fa-phone me-1"></i>
+                  {{ addr.mobileNumber }}
+                </div>
+              </div>
+              <button class="btn-delete-address"
+                      (click)="deleteAddress($event, addr.addressId)">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+
+            </div>
+          </div>
+
+          <!-- Add Address -->
+          <button class="btn-add-address"
+                  (click)="showAddressForm = !showAddressForm">
+            <i class="fas fa-plus me-2"></i>
+            Add New Address
+          </button>
+
+          <!-- Address Form -->
+          <div class="address-form"
+               *ngIf="showAddressForm">
+
+            <div class="row g-3">
+
+              <div class="col-md-6">
+                <label class="form-label">Full Name *</label>
+                <input type="text"
+                       class="form-control-custom"
+                       [(ngModel)]="newAddress.fullName">
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label">Mobile *</label>
+                <input type="tel"
+                   class="form-control-custom"
+                   [(ngModel)]="newAddress.mobileNumber"
+                   maxlength="10"
+                   inputmode="numeric"
+                   pattern="[6-9][0-9]{9}"
+                   oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,10)">
+              </div>
+
+              <div class="col-12">
+                <label class="form-label">Flat/House No *</label>
+                <input type="text"
+                       class="form-control-custom"
+                       [(ngModel)]="newAddress.flatNumber">
+              </div>
+              
+              <div class="col-12">
+                <label class="form-label">Street / Area *</label>
+                <input type="text"
+                       class="form-control-custom"
+                       [(ngModel)]="newAddress.street">
+              </div>
+
+              <div class="col-md-4">
+                <label class="form-label">City *</label>
+                <input type="text"
+                       class="form-control-custom"
+                       [(ngModel)]="newAddress.city">
+              </div>
+
+              <div class="col-md-4">
+                <label class="form-label">Pincode *</label>
+                <input type="text"
+                       class="form-control-custom"
+                       [(ngModel)]="newAddress.pincode">
+              </div>
+
+              <div class="col-md-4">
+                <label class="form-label">State *</label>
+                <input type="text"
+                       class="form-control-custom"
+                       [(ngModel)]="newAddress.state">
+              </div>
+
+              <div class="col-12">
+                <button class="btn btn-primary-custom"
+                        (click)="saveAddress()">
+                  <i class="fas fa-save me-2"></i>
+                  Save Address
+                </button>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="step-actions">
+            <button class="btn-next"
+                    [disabled]="!selectedAddressId"
+                    (click)="nextStep()">
+              Continue to Payment
+              <i class="fas fa-arrow-right ms-2"></i>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="checkout-section"
+             *ngIf="currentStep === 2">
+
+          <h5 class="section-title">
+            <i class="fas fa-credit-card me-2"
+               style="color:var(--primary)"></i>
+            Payment Method
+          </h5>
+
+          <div class="payment-options">
+
+            <!-- COD -->
+            <div class="payment-card"
+                 [class.selected]="paymentMethod === 'COD'"
+                 (click)="paymentMethod = 'COD'">
+
+              <div class="payment-radio">
+                <i class="fas fa-check-circle"
+                   *ngIf="paymentMethod === 'COD'"></i>
+
+                <i class="far fa-circle"
+                   *ngIf="paymentMethod !== 'COD'"></i>
+              </div>
+
+              <div class="payment-icon cod-icon">
+                <i class="fas fa-money-bill-wave"></i>
+              </div>
+
+              <div class="payment-details">
+                <div class="payment-name">
+                  Cash on Delivery
+                </div>
+                <div class="payment-desc">
+                  Pay when you receive your order
+                </div>
+              </div>
+            </div>
+
+            <!-- WALLET -->
+            <div class="payment-card"
+                 [class.selected]="paymentMethod === 'WALLET'"
+                 (click)="paymentMethod = 'WALLET'">
+
+              <div class="payment-radio">
+                <i class="fas fa-check-circle"
+                   *ngIf="paymentMethod === 'WALLET'"></i>
+
+                <i class="far fa-circle"
+                   *ngIf="paymentMethod !== 'WALLET'"></i>
+              </div>
+
+              <div class="payment-icon wallet-icon">
+                <i class="fas fa-wallet"></i>
+              </div>
+
+              <div class="payment-details">
+                <div class="payment-name">
+                  BookNest Wallet
+                </div>
+
+                <div class="payment-desc">
+                  Balance:
+                  <span [class.insufficient]="wallet?.currentBalance < cart?.totalPrice">
+                    ₹{{ (wallet?.currentBalance || 0) | number:'1.2-2' }}
+                  </span>
+                </div>
+              </div>
+
+              <div class="insufficient-warning"
+                   *ngIf="paymentMethod === 'WALLET' &&
+                          wallet?.currentBalance < cart?.totalPrice">
+
+                <i class="fas fa-exclamation-triangle me-1"></i>
+                Insufficient balance!
+
+                <a routerLink="/wallet"
+                   class="ms-2">
+                  Top up wallet
+                </a>
+              </div>
+
+            </div>
+            <!-- RAZORPAY -->
+            <div class="payment-card"
+                 [class.selected]="paymentMethod === 'RAZORPAY'"
+                 (click)="paymentMethod = 'RAZORPAY'">
+            
+              <div class="payment-radio">
+                <i class="fas fa-check-circle"
+                   *ngIf="paymentMethod === 'RAZORPAY'"></i>
+                <i class="far fa-circle"
+                   *ngIf="paymentMethod !== 'RAZORPAY'"></i>
+              </div>
+            
+              <div class="payment-icon" style="color:#2B6CB0">
+                <i class="fas fa-credit-card"></i>
+              </div>
+            
+              <div class="payment-details">
+                <div class="payment-name">Pay Online</div>
+                <div class="payment-desc">
+                  UPI, Cards, Net Banking via Razorpay
+                </div>
+              </div>
+
+</div>
+          </div>
+
+          <div class="step-actions">
+            <button class="btn-back"
+                    (click)="prevStep()">
+              <i class="fas fa-arrow-left me-2"></i>
+              Back
+            </button>
+
+            <button class="btn-next"
+                    (click)="nextStep()">
+              Review Order
+              <i class="fas fa-arrow-right ms-2"></i>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="checkout-section"
+             *ngIf="currentStep === 3">
+
+          <h5 class="section-title">
+            <i class="fas fa-list-check me-2"
+               style="color:var(--primary)"></i>
+            Review Order
+          </h5>
+
+          <div class="review-items">
+            <div class="review-item"
+                 *ngFor="let item of cart?.items">
+
+              <div class="review-item-icon">
+                <i class="fas fa-book"></i>
+              </div>
+
+              <div class="review-item-details">
+                <div class="review-item-title">
+                  {{ item.bookTitle }}
+                </div>
+
+                <div class="review-item-qty">
+                  Qty: {{ item.quantity }} × ₹{{ item.price }}
+                </div>
+              </div>
+
+              <div class="review-item-total">
+                ₹{{ item.price * item.quantity | number:'1.2-2' }}
+              </div>
+
+            </div>
+          </div>
+
+          <div class="review-summary">
+
+            <div class="review-row">
+              <span>Payment Method</span>
+              <span class="badge-method">
+                {{ paymentMethod === 'COD' ? 'Cash on Delivery'
+                 : paymentMethod === 'WALLET' ? 'BookNest Wallet'
+                 : 'Razorpay' }}
+              </span>
+            </div>
+
+            <div class="review-row">
+              <span>Delivery Address</span>
+              <span>
+                {{ getSelectedAddress()?.flatNumber }},
+                {{ getSelectedAddress()?.street }},
+                {{ getSelectedAddress()?.city }},
+                {{ getSelectedAddress()?.state }}
+                - {{ getSelectedAddress()?.pincode }}
+              </span>
+            </div>
+
+          </div>
+
+          <div class="step-actions">
+            <button class="btn-back"
+                    (click)="prevStep()">
+              <i class="fas fa-arrow-left me-2"></i>
+              Back
+            </button>
+
+            <button class="btn-place-order"
+                    [disabled]="isPlacingOrder"
+                    (click)="placeOrder()">
+
+              <span *ngIf="!isPlacingOrder">
+                <i class="fas fa-check me-2"></i>
+                Place Order
+              </span>
+
+              <span *ngIf="isPlacingOrder">
+                <i class="fas fa-spinner fa-spin me-2"></i>
+                Placing Order...
+              </span>
+
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div class="col-lg-4">
+
+        <div class="order-summary sticky-top"
+             style="top:80px">
+
+          <h6 class="summary-title">
+            Order Summary
+          </h6>
+
+          <div class="summary-items">
+
+            <div class="summary-item"
+                 *ngFor="let item of cart?.items">
+
+              <span class="summary-item-name">
+                {{ item.bookTitle }}
+                <small>(×{{ item.quantity }})</small>
+              </span>
+
+              <span class="summary-item-price">
+                ₹{{ item.price * item.quantity | number:'1.2-2' }}
+              </span>
+
+            </div>
+
+          </div>
+
+          <hr class="summary-divider">
+
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <span>
+              ₹{{ cart?.totalPrice | number:'1.2-2' }}
+            </span>
+          </div>
+
+          <div class="summary-row">
+            <span>Delivery</span>
+            <span class="text-success">FREE</span>
+          </div>
+
+          <hr class="summary-divider">
+
+          <div class="summary-total">
+            <span>Total</span>
+            <span class="total-amount">
+              ₹{{ cart?.totalPrice | number:'1.2-2' }}
+            </span>
+          </div>
+
+          <div class="payment-badge"
+               [class.wallet-badge]="paymentMethod === 'WALLET'">
+            <i class="fas me-2"
+               [class.fa-money-bill-wave]="paymentMethod === 'COD'"
+               [class.fa-wallet]="paymentMethod === 'WALLET'"
+               [class.fa-credit-card]="paymentMethod === 'RAZORPAY'"></i>
+            {{ paymentMethod === 'COD' ? 'Cash on Delivery'
+             : paymentMethod === 'WALLET' ? 'BookNest Wallet'
+             : 'Razorpay' }}
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,242 @@
+<div class="books-page">
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="container">
+      <h1 class="page-title">
+        Browse <span class="gradient-text">Books</span>
+      </h1>
+      <p class="page-subtitle">
+        Discover your next favourite read from our collection
+      </p>
+    </div>
+  </div>
+
+  <div class="container py-5">
+    <div class="row g-4">
+
+      <!-- ─── Sidebar Filters ──────────────────────────────── -->
+      <div class="col-lg-3">
+        <div class="filter-sidebar">
+
+          <!-- Search -->
+          <div class="filter-section">
+            <h6 class="filter-title">
+              <i class="fas fa-search me-2"></i>Search
+            </h6>
+            <input type="text"
+                   class="form-control-custom"
+                   placeholder="Search books..."
+                   [(ngModel)]="searchKeyword">
+          </div>
+
+          <!-- Genre Filter -->
+          <div class="filter-section">
+            <h6 class="filter-title">
+              <i class="fas fa-tags me-2"></i>Genre
+            </h6>
+            <div class="genre-list">
+              <button *ngFor="let genre of genres"
+                      class="genre-btn"
+                      [class.active]="selectedGenre === genre ||
+                        (genre === 'All' && !selectedGenre)"
+                      (click)="filterByGenre(
+                        genre === 'All' ? '' : genre)">
+                {{genre}}
+              </button>
+            </div>
+          </div>
+
+          <!-- Price Filter -->
+          <div class="filter-section">
+            <h6 class="filter-title">
+              <i class="fas fa-rupee-sign me-2"></i>
+              Max Price: ₹{{priceRange}}
+            </h6>
+            <input type="range"
+                   class="price-range"
+                   min="0" max="2000"
+                   [(ngModel)]="priceRange"
+                   (input)="filterByPrice()">
+            <div class="price-labels">
+              <span>₹0</span>
+              <span>₹2000</span>
+            </div>
+          </div>
+
+          <!-- Sort -->
+          <div class="filter-section">
+            <h6 class="filter-title">
+              <i class="fas fa-sort me-2"></i>Sort By
+            </h6>
+            <select class="form-control-custom"
+                    [(ngModel)]="sortBy"
+                    (change)="applySort()">
+              <option value="default">Default</option>
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+              <option value="rating">Top Rated</option>
+              <option value="title">Title A-Z</option>
+            </select>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ─── Books Grid ────────────────────────────────────── -->
+      <div class="col-lg-9">
+
+        <!-- Toolbar -->
+        <div class="books-toolbar">
+          <span class="results-count">
+            <strong>{{filteredBooks.length}}</strong> books found
+          </span>
+          <div class="view-toggle">
+            <button [class.active]="viewMode === 'grid'"
+                    (click)="viewMode = 'grid'">
+              <i class="fas fa-th"></i>
+            </button>
+            <button [class.active]="viewMode === 'list'"
+                    (click)="viewMode = 'list'">
+              <i class="fas fa-list"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Loading Skeleton -->
+        <div class="row g-4" *ngIf="isLoading">
+          <div [class]="viewMode === 'grid' ?
+               'col-6 col-md-4' : 'col-12'"
+               *ngFor="let s of [1,2,3,4,5,6,7,8,9]">
+            <div class="skeleton-card">
+              <div class="skeleton" style="height:220px;
+                   margin-bottom:12px;border-radius:12px"></div>
+              <div class="skeleton" style="height:16px;
+                   width:80%;margin-bottom:8px"></div>
+              <div class="skeleton" style="height:14px;
+                   width:60%"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Grid View -->
+        <div class="row g-4"
+             *ngIf="!isLoading && viewMode === 'grid'">
+          <div class="col-6 col-md-4"
+               *ngFor="let book of filteredBooks |
+               slice:0:50">
+            <div class="book-card">
+              <a [routerLink]="['/books', book.bookId]"
+                 class="text-decoration-none">
+                <div class="book-cover">
+                  <img [src]="book.coverImageUrl ||
+                       'assets/default-book.png'"
+                       [alt]="book.title"
+                       onerror="this.src='https://via.placeholder.com/200x280/1A1A2E/6C63FF?text=📚'">
+                  <div class="book-overlay">
+                    <span class="btn-quick-view">
+                      <i class="fas fa-eye me-1"></i>View
+                    </span>
+                  </div>
+                  <div class="stock-badge"
+                       *ngIf="book.stock === 0">
+                    Out of Stock
+                  </div>
+                </div>
+              </a>
+              <div class="book-info">
+                <div class="book-genre">{{book.genre}}</div>
+                <h6 class="book-title">{{book.title}}</h6>
+                <p class="book-author">by {{book.author}}</p>
+                <div class="book-rating">
+                  <i class="fas fa-star"
+                     *ngFor="let s of getStars(book.rating)">
+                  </i>
+                  <i class="far fa-star"
+                     *ngFor="let s of
+                     getEmptyStars(book.rating)"></i>
+                  <span class="ms-1">
+                    {{book.rating || '0.0'}}
+                  </span>
+                </div>
+                <div class="book-footer">
+                  <span class="book-price">₹{{book.price}}</span>
+                  <div class="book-actions">
+                    <button class="btn-icon"
+                            title="Add to Wishlist"
+                            (click)="addToWishlist(
+                              book.bookId, $event)">
+                      <i class="fas fa-heart"></i>
+                    </button>
+                    <button class="btn-icon btn-cart"
+                            title="Add to Cart"
+                            [disabled]="book.stock === 0"
+                            (click)="addToCart(
+                              book.bookId, $event)">
+                      <i class="fas fa-shopping-cart"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- List View -->
+        <div *ngIf="!isLoading && viewMode === 'list'">
+          <div class="book-list-item"
+               *ngFor="let book of filteredBooks">
+            <a [routerLink]="['/books', book.bookId]"
+               class="text-decoration-none d-flex">
+              <img [src]="book.coverImageUrl ||
+                   'assets/default-book.png'"
+                   [alt]="book.title"
+                   class="list-book-img"
+                   onerror="this.src='https://via.placeholder.com/80x110/1A1A2E/6C63FF?text=📚'">
+              <div class="list-book-info">
+                <div class="book-genre small">
+                  {{book.genre}}
+                </div>
+                <h5 class="book-title">{{book.title}}</h5>
+                <p class="book-author">by {{book.author}}</p>
+                <p class="book-desc">
+                  {{book.description?.slice(0, 100)}}...
+                </p>
+                <div class="d-flex align-items-center
+                            justify-content-between">
+                  <span class="book-price fs-5">
+                    ₹{{book.price}}
+                  </span>
+                  <div class="d-flex gap-2">
+                    <button class="btn btn-outline-custom btn-sm"
+                            (click)="addToWishlist(
+                              book.bookId, $event)">
+                      <i class="fas fa-heart me-1"></i>
+                      Wishlist
+                    </button>
+                    <button class="btn btn-primary-custom btn-sm"
+                            [disabled]="book.stock === 0"
+                            (click)="addToCart(
+                              book.bookId, $event)">
+                      <i class="fas fa-cart-plus me-1"></i>
+                      Add to Cart
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- Empty State -->
+        <div class="empty-state"
+             *ngIf="!isLoading && filteredBooks.length === 0">
+          <i class="fas fa-search"></i>
+          <h4>No books found</h4>
+          <p>Try adjusting your filters</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

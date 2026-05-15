@@ -1,0 +1,126 @@
+<div class="admin-page">
+
+  <div class="admin-header">
+    <div class="container">
+      <div class="d-flex justify-content-between
+                  align-items-center flex-wrap gap-3">
+        <div>
+          <h1 class="page-title">
+            Manage <span class="gradient-text">Books</span>
+          </h1>
+          <p class="page-subtitle">
+            {{books.length}} books in catalog
+          </p>
+        </div>
+        <a routerLink="/admin/books/add"
+           class="btn-add">
+          <i class="fas fa-plus me-2"></i>Add New Book
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container py-5">
+
+    <!-- Search -->
+    <div class="admin-search mb-4">
+      <i class="fas fa-search"></i>
+      <input type="text"
+             placeholder="Search books by title or author..."
+             (input)="search($any($event.target).value)">
+    </div>
+
+    <!-- Loading -->
+    <div class="skeleton"
+         style="height:400px;border-radius:16px"
+         *ngIf="isLoading">
+    </div>
+
+    <!-- Table -->
+    <div class="admin-table-wrapper" *ngIf="!isLoading">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Book</th>
+            <th>Genre</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Rating</th>
+            <th>Featured</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let book of filteredBooks;
+                      let i = index">
+            <td class="text-muted">{{i + 1}}</td>
+            <td>
+              <div class="book-info-cell">
+                <div class="book-icon-sm">
+                  <i class="fas fa-book"></i>
+                </div>
+                <div>
+                  <div class="book-title-cell">
+                    {{book.title}}
+                  </div>
+                  <div class="book-author-cell">
+                    {{book.author}}
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td>
+              <span class="genre-tag">{{book.genre}}</span>
+            </td>
+            <td class="price-cell">₹{{book.price}}</td>
+            <td>
+              <span class="stock-badge"
+                    [class.low-stock]="book.stock < 5"
+                    [class.out-stock]="book.stock === 0">
+                {{book.stock}}
+              </span>
+            </td>
+            <td>
+              <span class="rating-cell">
+                <i class="fas fa-star"></i>
+                {{book.rating || '0.0'}}
+              </span>
+            </td>
+            <td>
+              <span class="featured-badge"
+                    *ngIf="book.featured">
+                <i class="fas fa-star me-1"></i>Yes
+              </span>
+              <span class="not-featured"
+                    *ngIf="!book.featured">No</span>
+            </td>
+            <td>
+              <div class="action-btns">
+                <a [routerLink]="['/admin/books/edit',
+                                  book.bookId]"
+                   class="btn-edit">
+                  <i class="fas fa-edit"></i>
+                </a>
+                <button class="btn-delete"
+                        [disabled]="
+                        deletingBook === book.bookId"
+                        (click)="deleteBook(book.bookId)">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Empty -->
+      <div class="empty-table"
+           *ngIf="filteredBooks.length === 0">
+        <i class="fas fa-book"></i>
+        <p>No books found</p>
+      </div>
+    </div>
+
+  </div>
+</div>

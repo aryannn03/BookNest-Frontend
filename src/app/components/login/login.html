@@ -1,0 +1,119 @@
+<div class="auth-page">
+
+  <!-- Background -->
+  <div class="auth-bg">
+    <div class="bg-circle circle-1"></div>
+    <div class="bg-circle circle-2"></div>
+    <div class="bg-circle circle-3"></div>
+  </div>
+
+  <div class="container">
+    <div class="row justify-content-center align-items-center
+                min-vh-100">
+      <div class="col-md-5 col-lg-4">
+
+        <!-- Card -->
+        <div class="auth-card animate__animated animate__fadeInUp">
+
+          <!-- Logo -->
+          <div class="auth-logo">
+            <div class="logo-icon">
+              <i class="fas fa-book-open"></i>
+            </div>
+            <h1 class="logo-text">
+              Book<span class="accent">Nest</span>
+            </h1>
+          </div>
+
+          <h2 class="auth-title">Welcome Back!</h2>
+          <p class="auth-subtitle">
+            Sign in to continue your reading journey
+          </p>
+
+          <!-- Form -->
+          <form (ngSubmit)="login()">
+
+            <!-- Email -->
+            <div class="form-group">
+              <label class="form-label">
+                <i class="fas fa-envelope me-2"></i>Email
+              </label>
+              <input type="email"
+                     class="form-control-custom"
+                     placeholder="Enter your email"
+                     [(ngModel)]="loginData.email"
+                     name="email"
+                     required>
+            </div>
+
+            <!-- Password -->
+            <div class="form-group">
+              <div class="password-label-row">
+                <label class="form-label">
+                  <i class="fas fa-lock me-2"></i>Password
+                </label>
+                <!-- ← NEW: Forgot Password link -->
+                <a routerLink="/forgot-password" class="forgot-link">
+                  Forgot password?
+                </a>
+              </div>
+              <div class="password-wrapper">
+                <input [type]="showPassword ? 'text' : 'password'"
+                       class="form-control-custom"
+                       placeholder="Enter your password"
+                       [(ngModel)]="loginData.password"
+                       name="password"
+                       required>
+                <button type="button"
+                        class="password-toggle"
+                        (click)="togglePassword()">
+                  <i [class]="showPassword ?
+                     'fas fa-eye-slash' : 'fas fa-eye'"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Login Button -->
+            <button type="submit"
+                    class="btn-auth"
+                    [disabled]="isLoading">
+              <span *ngIf="!isLoading">
+                <i class="fas fa-sign-in-alt me-2"></i>
+                Sign In
+              </span>
+              <span *ngIf="isLoading">
+                <i class="fas fa-spinner fa-spin me-2"></i>
+                Signing in...
+              </span>
+            </button>
+
+          </form>
+
+          <!-- Divider -->
+          <div class="auth-divider">
+            <span>or continue with</span>
+          </div>
+
+          <!-- GitHub Login -->
+          <button class="btn-github" (click)="loginWithGithub()">
+            <i class="fab fa-github me-2"></i>
+            Sign in with GitHub
+          </button>
+          
+          <!-- Google Login -->
+          <button class="btn-google" (click)="loginWithGoogle()">
+            <i class="fab fa-google me-2"></i>
+            Sign in with Google
+          </button>
+
+          <!-- Register Link -->
+          <p class="auth-link">
+            Don't have an account?
+            <a routerLink="/register">Create one free</a>
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

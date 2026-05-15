@@ -1,0 +1,302 @@
+.admin-page { min-height: 100vh; }
+
+.admin-header {
+  background: linear-gradient(135deg, #1A1A2E, #16213E);
+  border-bottom: 1px solid rgba(108, 99, 255, 0.2);
+  padding: 40px 0;
+}
+
+.page-title {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.page-subtitle { color: var(--text-secondary); }
+
+.btn-add {
+  background: linear-gradient(135deg, #6C63FF, #FF6584);
+  border-radius: 12px;
+  color: white;
+  font-weight: 600;
+  padding: 12px 24px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+}
+
+.btn-add:hover {
+  box-shadow: 0 8px 25px rgba(108, 99, 255, 0.4);
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* ─── Search ────────────────────────────────────────────────── */
+.admin-search {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+}
+
+.admin-search i {
+  color: var(--text-muted);
+}
+
+.admin-search input {
+  background: transparent;
+  border: none;
+  color: white;
+  flex: 1;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.admin-search input::placeholder {
+  color: var(--text-muted);
+}
+
+/* ─── Table ─────────────────────────────────────────────────── */
+.admin-table-wrapper {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.admin-table thead tr {
+  background: rgba(108, 99, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.admin-table th {
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 14px 16px;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.admin-table td {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  padding: 14px 16px;
+  vertical-align: middle;
+}
+
+.admin-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* ─── Book Info Cell ────────────────────────────────────────── */
+.book-info-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.book-icon-sm {
+  width: 36px;
+  height: 36px;
+  background: rgba(108, 99, 255, 0.15);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+.book-title-cell {
+  color: white;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.book-author-cell {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+/* ─── Badges ────────────────────────────────────────────────── */
+.genre-tag {
+  background: rgba(108, 99, 255, 0.15);
+  border-radius: 6px;
+  color: var(--primary-light);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 10px;
+}
+
+.price-cell {
+  color: white;
+  font-weight: 700;
+}
+
+.stock-badge {
+  background: rgba(67, 233, 123, 0.1);
+  border-radius: 6px;
+  color: #43E97B;
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 4px 10px;
+}
+
+.stock-badge.low-stock {
+  background: rgba(246, 201, 14, 0.1);
+  color: #F6C90E;
+}
+
+.stock-badge.out-stock {
+  background: rgba(255, 101, 132, 0.1);
+  color: #FF6584;
+}
+
+.rating-cell {
+  color: #F6C90E;
+  font-weight: 600;
+}
+
+.featured-badge {
+  background: rgba(246, 201, 14, 0.1);
+  border-radius: 6px;
+  color: #F6C90E;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 10px;
+}
+
+.not-featured {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+/* ─── Action Buttons ────────────────────────────────────────── */
+.action-btns {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-edit {
+  background: rgba(108, 99, 255, 0.15);
+  border-radius: 8px;
+  color: var(--primary);
+  padding: 6px 12px;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.btn-edit:hover {
+  background: rgba(108, 99, 255, 0.3);
+  color: var(--primary-light);
+}
+
+.btn-delete {
+  background: rgba(255, 101, 132, 0.15);
+  border: none;
+  border-radius: 8px;
+  color: #FF6584;
+  cursor: pointer;
+  padding: 6px 12px;
+  transition: all 0.2s;
+}
+
+.btn-delete:hover:not(:disabled) {
+  background: rgba(255, 101, 132, 0.3);
+}
+
+.btn-delete:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.empty-table {
+  text-align: center;
+  padding: 60px;
+  color: var(--text-muted);
+}
+
+.empty-table i {
+  font-size: 3rem;
+  margin-bottom: 16px;
+  display: block;
+}
+.user-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, #6C63FF, #FF6584);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.user-name {
+  color: white;
+  font-weight: 600;
+}
+
+.provider-badge {
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 10px;
+}
+
+.github-badge {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.google-badge {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.local-badge {
+  background: rgba(108, 99, 255, 0.1);
+  color: var(--primary-light);
+}
+
+
+.admin-table td {
+  color: #E6E8F2 !important;
+}
+
+.admin-table td.text-muted {
+  color: #B8BED6 !important;
+}
+
+.user-name {
+  color: #FFFFFF !important;
+}
+
+.admin-table tbody tr {
+  background: rgba(255,255,255,0.01);
+}
+
+.admin-table tbody tr:hover {
+  background: rgba(255,255,255,0.03);
+}

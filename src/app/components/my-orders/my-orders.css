@@ -1,0 +1,336 @@
+.page-header {
+  background: linear-gradient(135deg, #1A1A2E, #16213E);
+  border-bottom: 1px solid rgba(108, 99, 255, 0.2);
+  padding: 60px 0 40px;
+}
+
+.page-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.page-subtitle { color: var(--text-secondary); }
+
+/* ─── Status Filter ─────────────────────────────────────────── */
+.status-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+
+.filter-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 8px 20px;
+  transition: all 0.3s ease;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+  background: rgba(108, 99, 255, 0.2);
+  border-color: var(--primary);
+  color: white;
+}
+
+/* ─── Order Card ────────────────────────────────────────────── */
+.order-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--border-radius);
+  margin-bottom: 20px;
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.order-card:hover {
+  border-color: rgba(108, 99, 255, 0.3);
+  box-shadow: var(--shadow-md);
+}
+
+/* ─── Order Header ──────────────────────────────────────────── */
+.order-header {
+  background: rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 16px 24px;
+}
+
+.order-id {
+  color: white;
+  font-weight: 700;
+  font-size: 0.95rem;
+  flex: 1;
+}
+
+.order-date {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+/* ─── Status Badges ─────────────────────────────────────────── */
+.order-status {
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 6px 16px;
+}
+
+.status-placed {
+  background: rgba(246, 201, 14, 0.1);
+  border: 1px solid rgba(246, 201, 14, 0.3);
+  color: #F6C90E;
+}
+
+.status-confirmed {
+  background: rgba(108, 99, 255, 0.1);
+  border: 1px solid rgba(108, 99, 255, 0.3);
+  color: var(--primary-light);
+}
+
+.status-dispatched {
+  background: rgba(56, 249, 215, 0.1);
+  border: 1px solid rgba(56, 249, 215, 0.3);
+  color: #38F9D7;
+}
+
+.status-delivered {
+  background: rgba(67, 233, 123, 0.1);
+  border: 1px solid rgba(67, 233, 123, 0.3);
+  color: #43E97B;
+}
+
+.status-cancelled {
+  background: rgba(255, 101, 132, 0.1);
+  border: 1px solid rgba(255, 101, 132, 0.3);
+  color: #FF6584;
+}
+
+/* ─── Order Body ────────────────────────────────────────────── */
+.order-body {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  padding: 20px 24px;
+}
+
+.order-book {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+}
+
+.book-icon {
+  width: 50px;
+  height: 65px;
+  background: rgba(108, 99, 255, 0.1);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+
+.order-book h6 {
+  color: white;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.order-book p {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  margin: 0;
+}
+
+.order-info {
+  display: flex;
+  gap: 24px;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.info-label {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.info-value {
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.info-value.amount {
+  background: linear-gradient(135deg, #6C63FF, #FF6584);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 1.1rem;
+}
+
+/* ─── Progress Bar ──────────────────────────────────────────── */
+.order-progress {
+  display: flex;
+  align-items: center;
+  padding: 16px 24px;
+  background: rgba(255, 255, 255, 0.02);
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.progress-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  opacity: 0.3;
+  transition: all 0.3s ease;
+}
+
+.progress-step.done {
+  opacity: 1;
+}
+
+.progress-step i {
+  width: 32px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  transition: all 0.3s ease;
+}
+
+.progress-step.done i {
+  background: linear-gradient(135deg, #6C63FF, #FF6584);
+  color: white;
+}
+
+.progress-step span {
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.progress-step.done span {
+  color: white;
+}
+
+.progress-line {
+  flex: 1;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.08);
+  margin-bottom: 20px;
+  transition: background 0.3s ease;
+}
+
+.progress-line.done {
+  background: linear-gradient(90deg, #6C63FF, #FF6584);
+}
+
+/* ─── Order Footer ──────────────────────────────────────────── */
+.order-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  padding: 16px 24px;
+}
+
+.btn-cancel {
+  background: rgba(255, 101, 132, 0.1);
+  border: 1px solid rgba(255, 101, 132, 0.3);
+  border-radius: 50px;
+  color: #FF6584;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 8px 20px;
+  transition: all 0.3s ease;
+}
+
+.btn-cancel:hover:not(:disabled) {
+  background: rgba(255, 101, 132, 0.2);
+}
+
+.btn-cancel:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.btn-review {
+  background: rgba(246, 201, 14, 0.1);
+  border: 1px solid rgba(246, 201, 14, 0.3);
+  border-radius: 50px;
+  color: #F6C90E;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 8px 20px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.btn-review:hover {
+  background: rgba(246, 201, 14, 0.2);
+  color: #F6C90E;
+}
+
+/* ─── Empty State ───────────────────────────────────────────── */
+.empty-state {
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.empty-state i {
+  font-size: 4rem;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+  display: block;
+}
+
+.empty-state h4 { color: var(--text-secondary); }
+.empty-state p { color: var(--text-muted); }
+
+.btn-invoice {
+  background: rgba(67, 233, 123, 0.1);
+  border: 1px solid rgba(67, 233, 123, 0.3);
+  border-radius: 50px;
+  color: #43E97B;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 8px 20px;
+  transition: all 0.3s ease;
+}
+ 
+.btn-invoice:hover {
+  background: rgba(67, 233, 123, 0.2);
+  box-shadow: 0 4px 15px rgba(67, 233, 123, 0.15);
+  transform: translateY(-1px);
+}
+ 
+ 

@@ -1,0 +1,130 @@
+.page-header {
+  background: linear-gradient(135deg, #1A1A2E, #16213E);
+  border-bottom: 1px solid rgba(108, 99, 255, 0.2);
+  padding: 60px 0 40px;
+}
+
+.page-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.page-subtitle { color: var(--text-secondary); }
+
+.btn-mark-all {
+  background: rgba(108, 99, 255, 0.15);
+  border: 1px solid rgba(108, 99, 255, 0.3);
+  border-radius: 50px;
+  color: var(--primary-light);
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 10px 20px;
+  transition: all 0.3s ease;
+}
+
+.btn-mark-all:hover {
+  background: rgba(108, 99, 255, 0.25);
+}
+
+/* ─── Notification Item ─────────────────────────────────────── */
+.notification-item {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+  padding: 16px 20px;
+  transition: var(--transition);
+}
+
+.notification-item:hover {
+  border-color: rgba(108, 99, 255, 0.3);
+  transform: translateX(4px);
+}
+
+.notification-item.unread {
+  background: rgba(108, 99, 255, 0.05);
+  border-color: rgba(108, 99, 255, 0.2);
+}
+
+.notif-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.notif-content { flex: 1; }
+
+.notif-type {
+  color: var(--primary-light);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+
+.notif-message {
+  color: white;
+  font-size: 0.9rem;
+  margin-bottom: 6px;
+}
+
+.notif-time {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+}
+
+.notif-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.unread-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--primary);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+.btn-delete-notif {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 4px 8px;
+  transition: color 0.2s;
+}
+
+.btn-delete-notif:hover {
+  color: #FF6584;
+}
+
+/* ─── Empty State ───────────────────────────────────────────── */
+.empty-state {
+  text-align: center;
+  padding: 80px 20px;
+  color: var(--text-muted);
+}
+
+.empty-state i {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.empty-state h4 { color: var(--text-secondary); }
